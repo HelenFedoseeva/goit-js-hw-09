@@ -12,6 +12,8 @@ const secondsRef = timerRef.querySelector('span[data-seconds]');
 
 startBtnRef.setAttribute('disabled', true);
 
+let choosedDate;
+
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -19,58 +21,57 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     console.log(selectedDates[0]);
-    const currentDate = new Date();
-    if (selectedDates[0] <= currentDate) {
+    choosedDate = selectedDates[0];
+    const ourDate = Date.now();
+
+    if (selectedDates[0] <= ourDate) {
       alert('Please choose a date in the future');
     }
 
     startBtnRef.removeAttribute('disabled', true);
-    startBtnRef.addEventListener('click', () => {
-      const calculatedTime = selectedDates[0] - currentDate;
-      const remainigTime = convertMs(calculatedTime);
-      console.log(remainigTime);
-      handOverTheDate(remainigTime);
-    });
   },
 };
 
 flatpickr('#datetime-picker', options);
 
+startBtnRef.addEventListener('click', onStartClickHandler);
+
+function onStartClickHandler() {
+  const timerID = setInterval(() => {
+    const currentDate = Date.now();
+    const calculatedTime = choosedDate - currentDate;
+    const remainigTime = convertMs(calculatedTime);
+    handOverTheDate(remainigTime);
+  }, 1000);
+}
+
 function convertMs(ms) {
-  // Number of milliseconds per unit of time
   const second = 1000;
   const minute = second * 60;
   const hour = minute * 60;
   const day = hour * 24;
 
-  // Remaining days
   const days = Math.floor(ms / day);
-  // Remaining hours
   const hours = Math.floor((ms % day) / hour);
-  // Remaining minutes
   const minutes = Math.floor(((ms % day) % hour) / minute);
-  // Remaining seconds
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
   return { days, hours, minutes, seconds };
 }
 
 function handOverTheDate({ days, hours, minutes, seconds }) {
-  // if (String(days).length <= 1) {
-  //   console.log(addLeadingZero(days));
-  //   return days;
-  // }
+  addLeadingZero({ days, hours, minutes, seconds });
   dayesRef.textContent = days;
   hoursRef.textContent = hours;
   minutesRef.textContent = minutes;
   secondsRef.textContent = seconds;
 }
 
-// function addLeadingZero(value) {
-//   const valueStr = String(value);
-//   let timerNumber;
-//   if (valueStr.length <= 1) {
-//     timerNumber = valueStr.padStart(2, '0');
-//   }
-//   return timerNumber;
-// }
+function addLeadingZero({ value }) {
+  const valueStr = String(value);
+  let timerNumber;
+  if (valueStr.length <= 1) {
+    timerNumber = valueStr.padStart(2, '0');
+  }
+  return timerNumber;
+}
