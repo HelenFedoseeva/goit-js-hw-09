@@ -56,9 +56,10 @@ function convertMs(ms) {
 }
 
 function handOverTheDate({ days, hours, minutes, seconds }) {
-  //   if (String(days).length <= 1) {
-  //     addLeadingZero(days);
-  //   }
+  // if (String(days).length <= 1) {
+  //   console.log(addLeadingZero(days));
+  //   return days;
+  // }
   dayesRef.textContent = days;
   hoursRef.textContent = hours;
   minutesRef.textContent = minutes;
@@ -67,8 +68,9 @@ function handOverTheDate({ days, hours, minutes, seconds }) {
 
 // function addLeadingZero(value) {
 //   const valueStr = String(value);
+//   let timerNumber;
 //   if (valueStr.length <= 1) {
-//     const timerNumber = valueStr.padStart(2, '0');
-//     return timerNumber;
+//     timerNumber = valueStr.padStart(2, '0');
 //   }
+//   return timerNumber;
 // }
