@@ -12,7 +12,7 @@ const secondsRef = timerRef.querySelector('span[data-seconds]');
 
 startBtnRef.setAttribute('disabled', true);
 
-let choosedDate;
+let choosedDate = null;
 
 const options = {
   enableTime: true,
@@ -51,27 +51,23 @@ function convertMs(ms) {
   const hour = minute * 60;
   const day = hour * 24;
 
-  const days = Math.floor(ms / day);
-  const hours = Math.floor((ms % day) / hour);
-  const minutes = Math.floor(((ms % day) % hour) / minute);
-  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+  const days = addLeadingZero(Math.floor(ms / day));
+  const hours = addLeadingZero(Math.floor((ms % day) / hour));
+  const minutes = addLeadingZero(Math.floor(((ms % day) % hour) / minute));
+  const seconds = addLeadingZero(
+    Math.floor((((ms % day) % hour) % minute) / second)
+  );
 
   return { days, hours, minutes, seconds };
 }
 
 function handOverTheDate({ days, hours, minutes, seconds }) {
-  addLeadingZero({ days, hours, minutes, seconds });
   dayesRef.textContent = days;
   hoursRef.textContent = hours;
   minutesRef.textContent = minutes;
   secondsRef.textContent = seconds;
 }
 
-function addLeadingZero({ value }) {
-  const valueStr = String(value);
-  let timerNumber;
-  if (valueStr.length <= 1) {
-    timerNumber = valueStr.padStart(2, '0');
-  }
-  return timerNumber;
+function addLeadingZero(value) {
+  return String(value).padStart(2, '0');
 }
