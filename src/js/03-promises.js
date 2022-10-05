@@ -7,16 +7,30 @@ const refs = {
   btnSubmitRef: document.querySelector('button'),
 };
 
-console.log(refs.btnSubmitRef);
+let AMOUNT = null;
 
-refs.btnSubmitRef.addEventListener('submit', createPromise);
+refs.btnSubmitRef.addEventListener('submit', onSubmitHandler);
+
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
   if (shouldResolve) {
-    // Fulfill
+    console.log('Это лог удачного промиса');
   } else {
-    // Reject
+    console.log('это лог неудачного промиса');
   }
 }
 
-function onSubmitHandler() {}
+// createPromise(2, 1500)
+//   .then(({ position, delay }) => {
+//     console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+//   })
+//   .catch(({ position, delay }) => {
+//     console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+//   });
+
+function onSubmitHandler() {
+  AMOUNT = refs.amountRef.value;
+  const delay = refs.delayStepref.value;
+
+  const promiseID = setInterval(createPromise(position, delay), AMOUNT);
+}
