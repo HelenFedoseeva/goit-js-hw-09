@@ -3,6 +3,8 @@ import flatpickr from 'flatpickr';
 // Дополнительный импорт стилей
 import 'flatpickr/dist/flatpickr.min.css';
 
+import Notiflix from 'notiflix';
+
 const startBtnRef = document.querySelector('button');
 const timerRef = document.querySelector('.timer');
 const dayesRef = timerRef.querySelector('span[data-days]');
@@ -41,6 +43,15 @@ function onStartClickHandler() {
     const currentDate = Date.now();
     const calculatedTime = choosedDate - currentDate;
     const remainigTime = convertMs(calculatedTime);
+    console.log(remainigTime);
+    if (
+      remainigTime.days === '00' &&
+      remainigTime.hours === '00' &&
+      remainigTime.minutes === '00' &&
+      remainigTime.seconds === '00'
+    ) {
+      clearInterval(timerID);
+    }
     handOverTheDate(remainigTime);
   }, 1000);
 }
@@ -62,6 +73,9 @@ function convertMs(ms) {
 }
 
 function handOverTheDate({ days, hours, minutes, seconds }) {
+  // if (days === '00' || hours === '00' || minutes === '00' || seconds === '00') {
+  //   return;
+  // }
   dayesRef.textContent = days;
   hoursRef.textContent = hours;
   minutesRef.textContent = minutes;
