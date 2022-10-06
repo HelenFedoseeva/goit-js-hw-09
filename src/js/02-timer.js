@@ -73,9 +73,6 @@ function convertMs(ms) {
 }
 
 function handOverTheDate({ days, hours, minutes, seconds }) {
-  // if (days === '00' || hours === '00' || minutes === '00' || seconds === '00') {
-  //   return;
-  // }
   dayesRef.textContent = days;
   hoursRef.textContent = hours;
   minutesRef.textContent = minutes;
