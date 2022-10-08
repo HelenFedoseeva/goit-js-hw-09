@@ -8,45 +8,19 @@ const refs = {
   btnSubmitRef: document.querySelector('button'),
 };
 
-let amount = null;
-let position = 0;
-let counter = 0;
-let delay = refs.firstDelayRef + refs.delayStepref.value;
-let firstDelay = refs.firstDelayRef.value;
-
 refs.formRef.addEventListener('submit', onSubmitHandler);
 
-function onSubmitHandler(event) {
-  event.preventDefault();
-  amount = refs.amountRef.value;
-  const delay = refs.delayStepref.value;
+function onSubmitHandler(e) {
+  e.preventDefault();
+  let counter = 0;
   counter += 1;
+  let amount = refs.amountRef.value;
 
   if (counter > amount) {
-    return;
+    clearInterval(promiseID);
   }
 
-  setInterval(createPromise(position, delay), firstDelay);
+  const promiseID = setInterval(createPromise, amount);
 }
 
-function createPromise(position, delay) {
-  const promise = new Promise((resolve, reject) => {
-    position += 1;
-    const shouldResolve = Math.random() > 0.3;
-
-    if (shouldResolve) {
-      resolve;
-    } else {
-      reject;
-    }
-  });
-  return promise;
-}
-
-createPromise(position, delay)
-  .then(({ position, delay }) => {
-    console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
-  })
-  .catch(({ position, delay }) => {
-    console.log(`❌ Rejected promise ${position} in ${delay}ms`);
-  });
+function createPromise() {}
