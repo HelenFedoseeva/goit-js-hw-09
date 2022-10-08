@@ -1,0 +1,2 @@
+!function(){var e={formRef:document.querySelector(".form"),firstDelayRef:document.querySelector('.form input[name="delay"]'),delayStepref:document.querySelector('.form input[name="step"]'),amountRef:document.querySelector('.form input[name="amount"]'),btnSubmitRef:document.querySelector("button")};function t(){}e.formRef.addEventListener("submit",(function(n){n.preventDefault();1;var r=e.amountRef.value;1>r&&clearInterval(u);var u=setInterval(t,r)}))}();
+//# sourceMappingURL=03-promises.a48a2481.js.map

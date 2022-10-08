@@ -1,0 +1,2 @@
+const e={formRef:document.querySelector(".form"),firstDelayRef:document.querySelector('.form input[name="delay"]'),delayStepref:document.querySelector('.form input[name="step"]'),amountRef:document.querySelector('.form input[name="amount"]'),btnSubmitRef:document.querySelector("button")};function t(){}e.formRef.addEventListener("submit",(function(n){n.preventDefault();let o=0;o+=1;let r=e.amountRef.value;1>r&&clearInterval(u);const u=setInterval(t,r)}));
+//# sourceMappingURL=03-promises.99d7ba25.js.map
